@@ -163,96 +163,144 @@
         /* Mobile Responsive Styles */
         @media (max-width: 1024px) {
             .main-grid {
-                grid-template-columns: 1fr;
-                gap: 24px;
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
+
+            .image-panel {
+                order: 2;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .panel.learnings {
+                order: 1;
             }
         }
 
         @media (max-width: 768px) {
             html, body {
-                height: auto;
-                overflow: auto;
+                height: auto !important;
+                overflow: auto !important;
+                overflow-x: hidden !important;
             }
 
             .fullscreen-container {
-                height: auto;
-                min-height: 100vh;
-                padding: 20px;
+                height: auto !important;
+                min-height: auto !important;
+                padding: 20px 16px !important;
+                justify-content: flex-start !important;
             }
 
             .hero-header {
-                margin-bottom: 24px;
-                margin-top: 10px;
+                margin-bottom: 20px !important;
+                margin-top: 10px !important;
             }
 
             .hero-header h1 {
-                font-size: 24px;
+                font-size: 22px !important;
+                line-height: 1.3 !important;
             }
 
             .hero-header p {
-                font-size: 13px;
+                font-size: 13px !important;
+            }
+
+            .hero-header > div:first-child {
+                font-size: 9px !important;
+                padding: 5px 12px !important;
             }
 
             .main-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 16px !important;
             }
 
             .image-panel {
-                padding: 16px;
+                order: 2 !important;
+                padding: 12px !important;
+                max-width: 280px !important;
+                margin: 0 auto !important;
             }
 
             .image-panel img {
-                width: 100%;
-                max-width: 100%;
+                width: 100% !important;
+                max-width: 100% !important;
+                border-radius: 12px !important;
+            }
+
+            .panel.learnings {
+                order: 1 !important;
             }
 
             .panel {
-                padding: 24px 20px;
+                padding: 20px 16px !important;
             }
 
             .panel-header {
-                margin-bottom: 20px;
-                padding-bottom: 16px;
+                margin-bottom: 16px !important;
+                padding-bottom: 12px !important;
             }
 
             .panel-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 16px !important;
             }
 
             .panel-title {
-                font-size: 16px;
+                font-size: 15px !important;
             }
 
             .bullet-list {
-                gap: 14px;
+                gap: 12px !important;
+            }
+
+            .bullet-item {
+                gap: 10px !important;
             }
 
             .bullet-icon {
-                width: 24px;
-                height: 24px;
-                min-width: 24px;
-                font-size: 10px;
+                width: 24px !important;
+                height: 24px !important;
+                min-width: 24px !important;
+                font-size: 10px !important;
             }
 
             .bullet-title {
-                font-size: 13px;
+                font-size: 13px !important;
+                line-height: 1.3 !important;
             }
 
             .bullet-desc {
-                font-size: 12px;
+                font-size: 11px !important;
+                line-height: 1.4 !important;
             }
 
-            [style*="display: flex"][style*="justify-content: space-between"] {
-                flex-direction: column;
-                gap: 16px;
-                align-items: center;
+            /* Navigation fix */
+            .nav-links-mobile {
+                flex-direction: column !important;
+                gap: 12px !important;
+                align-items: center !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-header h1 {
+                font-size: 18px !important;
             }
 
-            [style*="display: flex"][style*="justify-content: space-between"] a {
-                font-size: 14px !important;
+            .image-panel {
+                max-width: 220px !important;
+            }
+
+            .bullet-title {
+                font-size: 12px !important;
+            }
+
+            .bullet-desc {
+                font-size: 10px !important;
             }
         }
     </style>
@@ -341,12 +389,12 @@
         </div>
 
         <!-- Navigation Links -->
-        <div style="display: flex; justify-content: space-between; margin-top: 30px; padding: 0 20px;">
+        <div class="nav-links-mobile" style="display: flex; justify-content: space-between; margin-top: 30px; padding: 0 20px;">
             <a href="1.traffic-knowledge-graph.html" style="color: #60a5fa; font-size: 16px; text-decoration: none;">
-                <i class="fa-solid fa-arrow-left"></i> Previous: Traffic Knowledge Graph
+                <i class="fa-solid fa-arrow-left"></i> Previous
             </a>
             <a href="3.multi-domain-strategy.html" style="color: #60a5fa; font-size: 16px; text-decoration: none;">
-                Next: Multi-Domain Strategy <i class="fa-solid fa-arrow-right"></i>
+                Next <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
     </div>
