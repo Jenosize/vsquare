@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Investment Plan | privatolifting.com</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, transparent 40%),
+                        radial-gradient(circle at bottom left, #312e81, transparent 40%),
+                        linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            background-attachment: fixed;
+            color: #f8fafc;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 48px;
+            box-sizing: border-box;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #34d399 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Expense Categories */
+        .expense-legend {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+        }
+
+        .legend-dot.website { background: linear-gradient(135deg, #f472b6, #ec4899); }
+        .legend-dot.hosting { background: linear-gradient(135deg, #a78bfa, #8b5cf6); }
+        .legend-dot.seo { background: linear-gradient(135deg, #818cf8, #6366f1); }
+        .legend-dot.cloudflare { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+        .legend-dot.ads { background: linear-gradient(135deg, #f87171, #ef4444); }
+
+        .legend-text {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .legend-text span {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        /* Investment Table */
+        .investment-table {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 80px repeat(5, 1fr) 140px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            flex: 1;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row.header {
+            background: rgba(15, 23, 42, 0.8);
+            flex: 0 0 auto;
+        }
+
+        .table-row.header .table-cell {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            padding: 16px 8px;
+        }
+
+        .table-row.total-row {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+            flex: 0 0 auto;
+        }
+
+        .table-cell {
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 15px;
+        }
+
+        .table-cell:last-child {
+            border-right: none;
+        }
+
+        .table-cell.month {
+            font-weight: 700;
+            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.4);
+            font-size: 16px;
+        }
+
+        .table-cell.website { color: #f9a8d4; }
+        .table-cell.hosting { color: #c4b5fd; }
+        .table-cell.seo { color: #a5b4fc; }
+        .table-cell.cloudflare { color: #fcd34d; }
+        .table-cell.ads { color: #fca5a5; }
+        .table-cell.total { color: #6ee7b7; font-weight: 700; font-size: 16px; }
+
+        .table-cell .empty {
+            color: #475569;
+            font-size: 20px;
+        }
+
+        .table-row.total-row .table-cell {
+            font-weight: 800;
+            font-size: 16px;
+            padding: 18px 8px;
+        }
+
+        .table-row.total-row .table-cell.month {
+            color: #34d399;
+        }
+
+        /* Summary Section */
+        .summary-section {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .summary-card {
+            padding: 16px 36px;
+            border-radius: 16px;
+            text-align: center;
+            min-width: 160px;
+        }
+
+        .summary-card.onetime {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(244, 114, 182, 0.3);
+        }
+
+        .summary-card.monthly {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(251, 191, 36, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .summary-card.grand {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05));
+            border: 2px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .summary-label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .summary-value {
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .summary-card.onetime .summary-value { color: #f9a8d4; }
+        .summary-card.monthly .summary-value { color: #a5b4fc; }
+        .summary-card.grand .summary-value { color: #6ee7b7; }
+
+        .summary-note {
+            font-size: 10px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding: 24px 32px;
+            }
+
+            .table-row {
+                grid-template-columns: 60px repeat(5, 1fr) 100px;
+            }
+
+            .summary-section {
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html, body {
+                height: auto;
+                overflow: auto;
+            }
+
+            .container {
+                height: auto;
+                min-height: 100vh;
+                padding: 20px 16px;
+            }
+
+            .page-title h1 {
+                font-size: 24px;
+            }
+
+            .expense-legend {
+                gap: 8px;
+                justify-content: flex-start;
+            }
+
+            .legend-item {
+                padding: 6px 10px;
+            }
+
+            .legend-text {
+                font-size: 10px;
+            }
+
+            .investment-table {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .table-row {
+                grid-template-columns: 50px repeat(5, 80px) 90px;
+                min-width: 550px;
+            }
+
+            .table-cell {
+                font-size: 11px;
+                padding: 10px 6px;
+            }
+
+            .table-cell.month {
+                font-size: 12px;
+            }
+
+            .table-cell.total {
+                font-size: 12px;
+            }
+
+            .table-row.header .table-cell {
+                font-size: 9px;
+                padding: 12px 6px;
+            }
+
+            .table-row.total-row .table-cell {
+                font-size: 12px;
+                padding: 14px 6px;
+            }
+
+            .summary-section {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+
+            .summary-card {
+                padding: 14px 20px;
+                min-width: auto;
+                width: 100%;
+            }
+
+            .summary-value {
+                font-size: 20px;
+            }
+
+            .summary-label {
+                font-size: 10px;
+            }
+
+            .summary-note {
+                font-size: 9px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .table-row {
+                grid-template-columns: 40px repeat(5, 70px) 80px;
+            }
+
+            .table-cell {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-title">
+            <h1>6-Month Investment Plan</h1>
+        </div>
+
+        <!-- Expense Legend -->
+        <div class="expense-legend">
+            <div class="legend-item">
+                <div class="legend-dot website"></div>
+                <div class="legend-text"><span>Website</span> One-time</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot hosting"></div>
+                <div class="legend-text"><span>Hosting</span> 1 Year</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot seo"></div>
+                <div class="legend-text"><span>SEO</span> Monthly</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot cloudflare"></div>
+                <div class="legend-text"><span>Cloudflare</span> Monthly</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot ads"></div>
+                <div class="legend-text"><span>Ads</span> Monthly</div>
+            </div>
+        </div>
+
+        <!-- Investment Table -->
+        <div class="investment-table">
+            <div class="table-row header">
+                <div class="table-cell">Month</div>
+                <div class="table-cell"><i class="fa-solid fa-globe" style="margin-right: 6px;"></i>Website</div>
+                <div class="table-cell"><i class="fa-solid fa-server" style="margin-right: 6px;"></i>Hosting</div>
+                <div class="table-cell"><i class="fa-solid fa-magnifying-glass" style="margin-right: 6px;"></i>SEO</div>
+                <div class="table-cell"><i class="fa-solid fa-cloud" style="margin-right: 6px;"></i>Cloudflare</div>
+                <div class="table-cell"><i class="fa-solid fa-bullhorn" style="margin-right: 6px;"></i>Ads</div>
+                <div class="table-cell">Total</div>
+            </div>
+            <div class="table-row">
+                <div class="table-cell month">1</div>
+                <div class="table-cell website">฿45,000</div>
+                <div class="table-cell hosting">฿6,800</div>
+                <div class="table-cell seo">฿55,000</div>
+                <div class="table-cell cloudflare">฿782</div>
+                <div class="table-cell ads">฿10,000</div>
+                <div class="table-cell total">฿117,582</div>
+            </div>
+            <div class="table-row">
+                <div class="table-cell month">2</div>
+                <div class="table-cell website"><span class="empty">—</span></div>
+                <div class="table-cell hosting"><span class="empty">—</span></div>
+                <div class="table-cell seo">฿55,000</div>
+                <div class="table-cell cloudflare">฿782</div>
+                <div class="table-cell ads">฿10,000</div>
+                <div class="table-cell total">฿65,782</div>
+            </div>
+            <div class="table-row">
+                <div class="table-cell month">3</div>
+                <div class="table-cell website"><span class="empty">—</span></div>
+                <div class="table-cell hosting"><span class="empty">—</span></div>
+                <div class="table-cell seo">฿55,000</div>
+                <div class="table-cell cloudflare">฿782</div>
+                <div class="table-cell ads">฿10,000</div>
+                <div class="table-cell total">฿65,782</div>
+            </div>
+            <div class="table-row">
+                <div class="table-cell month">4</div>
+                <div class="table-cell website"><span class="empty">—</span></div>
+                <div class="table-cell hosting"><span class="empty">—</span></div>
+                <div class="table-cell seo">฿55,000</div>
+                <div class="table-cell cloudflare">฿782</div>
+                <div class="table-cell ads">฿10,000</div>
+                <div class="table-cell total">฿65,782</div>
+            </div>
+            <div class="table-row">
+                <div class="table-cell month">5</div>
+                <div class="table-cell website"><span class="empty">—</span></div>
+                <div class="table-cell hosting"><span class="empty">—</span></div>
+                <div class="table-cell seo">฿55,000</div>
+                <div class="table-cell cloudflare">฿782</div>
+                <div class="table-cell ads">฿10,000</div>
+                <div class="table-cell total">฿65,782</div>
+            </div>
+            <div class="table-row">
+                <div class="table-cell month">6</div>
+                <div class="table-cell website"><span class="empty">—</span></div>
+                <div class="table-cell hosting"><span class="empty">—</span></div>
+                <div class="table-cell seo">฿55,000</div>
+                <div class="table-cell cloudflare">฿782</div>
+                <div class="table-cell ads">฿10,000</div>
+                <div class="table-cell total">฿65,782</div>
+            </div>
+            <div class="table-row total-row">
+                <div class="table-cell month">TOTAL</div>
+                <div class="table-cell website">฿45,000</div>
+                <div class="table-cell hosting">฿6,800</div>
+                <div class="table-cell seo">฿330,000</div>
+                <div class="table-cell cloudflare">฿4,692</div>
+                <div class="table-cell ads">฿60,000</div>
+                <div class="table-cell total">฿446,492</div>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-section">
+            <div class="summary-card onetime">
+                <div class="summary-label">One-Time</div>
+                <div class="summary-value">฿51,800</div>
+                <div class="summary-note">Website + Hosting</div>
+            </div>
+            <div class="summary-card monthly">
+                <div class="summary-label">Monthly</div>
+                <div class="summary-value">฿65,782</div>
+                <div class="summary-note">SEO + Cloudflare + Ads</div>
+            </div>
+            <div class="summary-card grand">
+                <div class="summary-label">6-Month Total</div>
+                <div class="summary-value">฿446,492</div>
+                <div class="summary-note">All expenses included</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Domain Infrastructure | VSquare Domain Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 24px 64px;
+            box-sizing: border-box;
+        }
+
+        .compact-header { margin-bottom: 20px; }
+        .compact-header h1 { font-size: 42px; margin-bottom: 8px; }
+        .compact-header p { font-size: 18px; }
+
+        .unified-table {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .unified-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .unified-table th {
+            background: rgba(99, 102, 241, 0.15);
+            padding: 16px 24px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #818cf8;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .unified-table td {
+            padding: 14px 24px;
+            font-size: 15px;
+            color: var(--text-main);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: middle;
+        }
+
+        .unified-table tr:last-child td { border-bottom: none; }
+        .unified-table tr:hover { background: rgba(255, 255, 255, 0.02); }
+
+        .domain-name {
+            font-weight: 600;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .domain-name .primary {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1e1b4b;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .registrar-cell {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .date-cell {
+            font-size: 14px;
+            color: #a78bfa;
+            white-space: nowrap;
+        }
+
+        .age-cell {
+            font-size: 13px;
+            color: #34d399;
+            font-weight: 500;
+        }
+
+        .badge-sm {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-wordpress { background: rgba(33, 117, 155, 0.2); color: #67c5e8; }
+        .badge-elementor { background: rgba(146, 55, 124, 0.2); color: #e879c0; }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .info-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px 24px;
+            text-align: center;
+        }
+
+        .info-card.highlight {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(14, 165, 233, 0.1));
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .info-card-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .info-card-icon.cf { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .info-card-icon.ns { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+
+        .info-card h4 {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .info-card .value {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .info-card code {
+            display: block;
+            font-family: 'Menlo', monospace;
+            font-size: 13px;
+            color: #86efac;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding: 24px 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html, body {
+                height: auto;
+                overflow: auto;
+            }
+
+            .container {
+                height: auto;
+                min-height: 100vh;
+                padding: 20px 16px;
+            }
+
+            .compact-header h1 {
+                font-size: 28px;
+            }
+
+            .unified-table {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .unified-table table {
+                min-width: 700px;
+            }
+
+            .unified-table th {
+                padding: 12px 16px;
+                font-size: 10px;
+            }
+
+            .unified-table td {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .domain-name {
+                font-size: 13px;
+                flex-wrap: wrap;
+            }
+
+            .domain-name .primary {
+                font-size: 8px;
+                padding: 2px 6px;
+            }
+
+            .badge-sm {
+                padding: 4px 8px;
+                font-size: 10px;
+            }
+
+            .registrar-cell {
+                font-size: 12px;
+            }
+
+            .date-cell {
+                font-size: 12px;
+            }
+
+            .age-cell {
+                font-size: 11px;
+            }
+
+            [style*="display: flex"][style*="justify-content: space-between"][style*="margin: 40px"] {
+                flex-direction: column;
+                gap: 16px;
+                align-items: center;
+                margin: 20px 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header compact-header">
+            <div class="phase-badge">
+                <i class="fa-solid fa-server"></i>
+                <span>Domain Infrastructure</span>
+            </div>
+            <h1>All 8 Domains Overview</h1>
+        </header>
+
+        <!-- Unified Domain Table -->
+        <div class="unified-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>CMS</th>
+                        <th>Page Builder</th>
+                        <th>Registrar</th>
+                        <th>Created</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="domain-name">vsquareclinic.com <span class="primary">PRIMARY</span></div></td>
+                        <td><span class="badge-sm badge-wordpress"><i class="fa-brands fa-wordpress"></i> WordPress</span></td>
+                        <td><span class="badge-sm badge-elementor"><i class="fa-solid fa-wand-magic-sparkles"></i> Elementor</span></td>
+                        <td class="registrar-cell">Squarespace</td>
+                        <td class="date-cell">May 5, 2016</td>
+                        <td class="age-cell">~9.7 yrs</td>
+                    </tr>
+                    <tr>
+                        <td><div class="domain-name">vsqclinic.com</div></td>
+                        <td><span class="badge-sm badge-wordpress"><i class="fa-brands fa-wordpress"></i> WordPress</span></td>
+                        <td><span class="badge-sm badge-elementor"><i class="fa-solid fa-wand-magic-sparkles"></i> Elementor</span></td>
+                        <td class="registrar-cell">Web.com</td>
+                        <td class="date-cell">Jun 23, 2018</td>
+                        <td class="age-cell">~7.5 yrs</td>
+                    </tr>
+                    <tr>
+                        <td><div class="domain-name">vsquareconsult.com</div></td>
+                        <td><span class="badge-sm badge-wordpress"><i class="fa-brands fa-wordpress"></i> WordPress</span></td>
+                        <td>-</td>
+                        <td class="registrar-cell">PDR Ltd.</td>
+                        <td class="date-cell">Sep 19, 2018</td>
+                        <td class="age-cell">~7.3 yrs</td>
+                    </tr>
+                    <tr>
+                        <td><div class="domain-name">vsquare-under-eye.com</div></td>
+                        <td><span class="badge-sm badge-wordpress"><i class="fa-brands fa-wordpress"></i> WordPress</span></td>
+                        <td>-</td>
+                        <td class="registrar-cell">PDR Ltd.</td>
+                        <td class="date-cell">Dec 7, 2020</td>
+                        <td class="age-cell">~5 yrs</td>
+                    </tr>
+                    <tr>
+                        <td><div class="domain-name">vsq-injector.com</div></td>
+                        <td><span class="badge-sm badge-wordpress"><i class="fa-brands fa-wordpress"></i> WordPress</span></td>
+                        <td>-</td>
+                        <td class="registrar-cell">PDR Ltd.</td>
+                        <td class="date-cell">Apr 19, 2022</td>
+                        <td class="age-cell">~3.7 yrs</td>
+                    </tr>
+                    <tr>
+                        <td><div class="domain-name">vsquareclinic.co</div></td>
+                        <td><span class="badge-sm badge-wordpress"><i class="fa-brands fa-wordpress"></i> WordPress</span></td>
+                        <td>-</td>
+                        <td class="registrar-cell">PDR Ltd.</td>
+                        <td class="date-cell">Apr 28, 2022</td>
+                        <td class="age-cell">~3.7 yrs</td>
+                    </tr>
+                    <tr>
+                        <td><div class="domain-name">drvsquare.com</div></td>
+                        <td><span class="badge-sm badge-wordpress"><i class="fa-brands fa-wordpress"></i> WordPress</span></td>
+                        <td>-</td>
+                        <td class="registrar-cell">GoDaddy</td>
+                        <td class="date-cell">May 9, 2023</td>
+                        <td class="age-cell">~2.7 yrs</td>
+                    </tr>
+                    <tr>
+                        <td><div class="domain-name">vsquare.clinic</div></td>
+                        <td><span class="badge-sm badge-wordpress"><i class="fa-brands fa-wordpress"></i> WordPress</span></td>
+                        <td><span class="badge-sm badge-elementor"><i class="fa-solid fa-wand-magic-sparkles"></i> Elementor</span></td>
+                        <td class="registrar-cell">Identity Digital</td>
+                        <td class="date-cell">N/A</td>
+                        <td class="age-cell">Unknown</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="display: flex; justify-content: space-between; margin: 40px 0; padding: 0 20px;">
+            <a href="6.traffic-comparison.html" style="color: #60a5fa; font-size: 16px; text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i> Previous: Traffic Comparison
+            </a>
+            <a href="8.risks-benefits.html" style="color: #60a5fa; font-size: 16px; text-decoration: none;">
+                Next: Risks & Benefits <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
